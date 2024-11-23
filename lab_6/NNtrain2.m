@@ -22,31 +22,28 @@ ndataset=i-1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %training
-a1= 0.980632;
-b1= 0.869008;
-c1= -0.199806;
-d1= 0.143943;
-%%%%%%%%%%%%%%%%%
-a2= 2.458867;
-b2= -0.465149;
-c2= 3.005180;
-d2= -1.182411;
-%%%%%%%%%%%%%%%%%
-a3= 4.737032;
-b3= 0.007027;
-c3= 2.570542;
-d3= -1.276702;
+a1 = 1.0; b1 = 1.0; c1 = 1.0; d1 = 1.0;
+a2 = 1.0; b2 = 1.0; c2 = 1.0; d2 = 1.0;
+a3 = 1.0; b3 = 1.0; c3 = 1.0; d3 = 1.0;
+
 eta1=0.1;
 eta2=0.1;
 eta3=0.1;
 
 r = 0 + (1-0).*rand(ndataset,1);
 r=r.*ndataset;
-for j=1:ndataset
-  i=floor(r(j));
-  if(i==0)
-    i=1;
-  end
+
+
+num_epochs = 1000; % Liczba epok
+for epoch = 1:num_epochs
+    disp("Epoch: " + epoch);
+    % Istniejąca pętla dla zbioru danych
+    for j = 1:ndataset
+        i = floor(r(j));
+        if i == 0
+            i = 1;
+        end
+     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %1
   a1_=a1; b1_=b1; c1_=c1; d1_=d1;
@@ -137,7 +134,8 @@ for j=1:ndataset
   ye2(j)=error2;
   ye3(j)=error3;
 %
-  end
+    end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % plot convergence
 x=1:1:ndataset;
@@ -215,6 +213,7 @@ n=0.123;
 eval1 = c1*1.0/(1.0+exp(-(a1*n+b1)))+d1;
 eval2 = c2*1.0/(1.0+exp(-(a2*n+b2)))+d2;
 eval3 = c3*1.0/(1.0+exp(-(a3*n+b3)))+d3;
+
 %computing B-spline values
 x=0:0.01:0.5;
 y=sin(n*pi.*x);
@@ -224,6 +223,22 @@ h=legend('sin(n*pi*x)','u1*B(1,2)(x)+u2*B(2,2)(x)+u3*B(3,3)(x)');
 set(h,'FontSize',20);
 set(h,'Location','northwest');
 set(gca,'FontSize',20);
+
+
+fprintf('a1= %f;\n', a1)
+fprintf("b1= %f;\n", b1)
+fprintf("c1= %f;\n", c1)
+fprintf("d1= %f;\n", d1)
+disp("%%%%%%%%%%%%%%%%%")
+fprintf("a2= %f;\n", a2)
+fprintf("b2= %f;\n", b2)
+fprintf("c2= %f;\n", c2)
+fprintf("d2= %f;\n", d2)
+disp("%%%%%%%%%%%%%%%%%")
+fprintf("a3= %f;\n", a3)
+fprintf("b3= %f;\n", b3)
+fprintf("c3= %f;\n", c3)
+fprintf("d3= %f;\n", d3)
 end
 
 function y=sigma(x)
